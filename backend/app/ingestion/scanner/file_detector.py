@@ -12,6 +12,12 @@ class FileType(Enum):
     XLSX="xlsx"
     IMAGE="image"
     UNKNOWN="unknown"
+    PYTHON="python"
+    JAVASCRIPT="javascript"
+    TYPESCRIPT="typescript"
+    JSON="json"
+    YAML="yaml"
+    SVG="svg"
 
 EXTENSION_MAP={
     ".pdf":FileType.PDF,
@@ -24,7 +30,21 @@ EXTENSION_MAP={
     ".xlsx":FileType.XLSX,
     ".jpg":FileType.IMAGE,
     ".jpeg":FileType.IMAGE,
-    ".png":FileType.IMAGE
+    ".png":FileType.IMAGE,
+    ".py": FileType.PYTHON,
+
+    ".js": FileType.JAVASCRIPT,
+    ".jsx": FileType.JAVASCRIPT,
+
+    ".ts": FileType.TYPESCRIPT,
+    ".tsx": FileType.TYPESCRIPT,
+
+    ".json": FileType.JSON,
+
+    ".yaml": FileType.YAML,
+    ".yml": FileType.YAML,
+
+    ".svg": FileType.SVG
 
 }
 
@@ -45,3 +65,9 @@ if __name__=="__main__":
     print(detector.detect("image.jpg"))
     print(detector.detect("data.xlsx"))
     print(detector.detect("script.py"))
+    print(detector.detect("script.py"))
+    print(detector.detect("app.js"))
+    print(detector.detect("component.jsx"))
+    print(detector.detect("config.json"))
+    print(detector.detect("docker-compose.yml"))
+    print(detector.detect("image.svg"))
