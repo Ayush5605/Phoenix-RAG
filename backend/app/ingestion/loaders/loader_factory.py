@@ -1,9 +1,11 @@
 from ..scanner.file_detector import FileType
 from .docling_loader import DoclingLoader
+from .text_loader import TextLoader
 
 class LoaderFactory:
     def __init__(self):
         self.docling_loader=DoclingLoader()
+        self.text_loader=TextLoader()
 
     def get_loader(self,file_type:FileType):
 
@@ -16,6 +18,18 @@ class LoaderFactory:
 
         }:
             return self.docling_loader
+
+        if file_type in{
+             FileType.TEXT,
+            FileType.PYTHON,
+            FileType.JAVASCRIPT,
+            FileType.TYPESCRIPT,
+            FileType.JSON,
+            FileType.YAML,
+            FileType.SVG
+
+        }:
+            return self.text_loader
 
         raise ValueError(f"No loader available for this file type:{file_type}")
 
