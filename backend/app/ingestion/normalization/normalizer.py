@@ -8,6 +8,8 @@ class Normalizer:
         self.cleaner=Cleaner()
 
     def normalize(self,content:str,file_path:str)->Document:
+        if hasattr(content, "export_to_markdown"):
+            content = content.export_to_markdown()
         cleaned_content=self.cleaner.clean(content)
         path=Path(file_path)
 

@@ -8,7 +8,7 @@ from app.ingestion.normalization.normalizer import Normalizer
 def main():
 
     # 1. Select an actual dataset file
-    file_path = Path("app/ingestion/scanner/file_detector.py")
+    file_path = Path("../dataset/data/Engineer/API/fastapi/README.md")
 
     # 2. Detect file type
     detector = FileDetector()
@@ -24,6 +24,9 @@ def main():
 
     # 4. Load content
     content = loader.load(file_path)
+
+    print("Loaded content type:", type(content).__name__)
+    
 
     print("Loaded content type:", type(content).__name__)
 
