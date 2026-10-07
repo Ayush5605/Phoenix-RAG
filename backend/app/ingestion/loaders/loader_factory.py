@@ -37,8 +37,22 @@ class LoaderFactory:
 
 
 if __name__ == "__main__":
+    from pathlib import Path
+    from ..scanner.file_detector import FileDetector
+
+    file_path = Path("app/ingestion/scanner/file_detector.py")
+
+    detector = FileDetector()
+    file_type = detector.detect(file_path)
+
+    print("File type:", file_type)
+
     factory = LoaderFactory()
+    loader = factory.get_loader(file_type)
 
-    loader = factory.get_loader(FileType.PYTHON)
+    print("Loader:", type(loader).__name__)
 
-    print(type(loader).__name__)
+    content = loader.load(file_path)
+
+    print("\nContent:")
+    print(content[:500])
