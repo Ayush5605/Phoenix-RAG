@@ -10,7 +10,7 @@ class MetaDataExtractor:
     def extract(self,file_path:str):
         path=Path(file_path)
 
-        file_type=self.file_detector(path)
+        file_type=self.file_detector.detect(path)
 
         metadata={
             "source":str(path),
@@ -21,3 +21,9 @@ class MetaDataExtractor:
         }
 
         return metadata
+
+
+
+if __name__ =="__main__":
+    metadata=MetaDataExtractor()
+    print(metadata.extract(r"D:\Projects\PhoenixRAG\dataset\data\Engineer\API\fastapi\README.md"))

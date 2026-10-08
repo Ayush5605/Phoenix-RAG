@@ -1,11 +1,14 @@
 from pathlib import Path
 from .document import Document
 from .cleaner import Cleaner
+from ..metadata.metadata_extractor import MetaDataExtractor
+
 
 class Normalizer:
 
     def __init__(self):
         self.cleaner=Cleaner()
+        self.metadata_extractor=MetaDataExtractor()
 
     def normalize(self,content:str,file_path:str)->Document:
         if hasattr(content, "export_to_markdown"):
@@ -13,11 +16,7 @@ class Normalizer:
         cleaned_content=self.cleaner.clean(content)
         path=Path(file_path)
 
-        metadata={
-            "source":str(path),
-            "file_name":path.name,
-            "extension":path.suffix.lower()
-        }
+        metadata=self.metadata_extractor.extract(path)
 
         return Document(
             content=cleaned_content,
