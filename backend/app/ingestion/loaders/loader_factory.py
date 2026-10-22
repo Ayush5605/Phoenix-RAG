@@ -7,31 +7,36 @@ class LoaderFactory:
         self.docling_loader=DoclingLoader()
         self.text_loader=TextLoader()
 
-    def get_loader(self,file_type:FileType):
+    
+def get_loader(self, file_type: FileType):
+    # Lightweight files: read directly
+    if file_type in {
+        FileType.MARKDOWN,
+        FileType.TEXT,
+        FileType.PYTHON,
+        FileType.JAVASCRIPT,
+        FileType.TYPESCRIPT,
+        FileType.JSON,
+        FileType.YAML,
+        FileType.SVG,
+    }:
+        return self.text_loader
 
-        if file_type in {
-             FileType.PDF,
-             FileType.MARKDOWN,
-             FileType.HTML,
-             FileType.DOCX,
-             FileType.PPTX
+    # Documents requiring structured extraction
+    if file_type in {
+        FileType.PDF,
+        FileType.DOCX,
+        FileType.PPTX,
+        FileType.HTML,
+    }:
+        return self.docling_loader
 
-        }:
-            return self.docling_loader
+    raise ValueError(
+        f"No loader available for this file type: {file_type}"
+    )
 
-        if file_type in{
-             FileType.TEXT,
-            FileType.PYTHON,
-            FileType.JAVASCRIPT,
-            FileType.TYPESCRIPT,
-            FileType.JSON,
-            FileType.YAML,
-            FileType.SVG
 
-        }:
-            return self.text_loader
-
-        raise ValueError(f"No loader available for this file type:{file_type}")
+   
 
 
 
@@ -52,7 +57,7 @@ if __name__ == "__main__":
 
     print("Loader:", type(loader).__name__)
 
-    content = loader.load(file_path)
+    content = loader.load(str(file_path))
 
     print("\nContent:")
     print(content[:500])

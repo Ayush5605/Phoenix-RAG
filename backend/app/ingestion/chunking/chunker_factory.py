@@ -20,6 +20,8 @@ class ChunkerFactory:
             "json": JSONChunker(),
             "yaml": YAMLChunker(),
             "text": TextChunker(),
+            "html": TextChunker(),
+            "svg": TextChunker(),
         }
 
         self.code_languages = {
