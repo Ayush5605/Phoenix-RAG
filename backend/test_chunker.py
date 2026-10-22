@@ -1,29 +1,48 @@
+
 from app.ingestion.normalization.document import Document
-from app.ingestion.chunking.factory.markdown_chunker import MarkdownChunker
+from app.ingestion.chunking.chunker_factory import ChunkerFactory
 
-document = Document(
-    content="""# PhoenixRAG
 
-PhoenixRAG is a self-healing RAG system.
+def main():
+    factory = ChunkerFactory()
 
-## Ingestion Pipeline
+    test_documents = [
+        Document(
+            content="# PhoenixRAG\n\nA self-healing RAG system.",
+            metadata={"source": "test.md", "file_type": "markdown"}
+        ),
+        Document(
+            content="def hello():\n    print('Hello PhoenixRAG')",
+            metadata={"source": "test.py", "file_type": "python"}
+        ),
+        Document(
+            content='{"name": "PhoenixRAG", "version": 1}',
+            metadata={"source": "test.json", "file_type": "json"}
+        ),
+        Document(
+            content="PhoenixRAG processes documents.\nIt retrieves relevant chunks.",
+            metadata={"source": "test.txt", "file_type": "text"}
+        ),
+    ]
 
-The ingestion pipeline loads and processes documents.
+    for document in test_documents:
+        print(f"\n{'=' * 50}")
+        print("File type:", document.metadata["file_type"])
 
-## Retrieval Pipeline
+        try:
+            chunker = factory.get_chunker(document)
+            chunks = chunker.chunk(document)
 
-The retrieval pipeline searches for relevant chunks.
-""",
-    metadata={
-        "source": "test.md",
-        "file_type": "markdown"
-    }
-)
+            print("Chunker:", type(chunker).__name__)
+            print("Total chunks:", len(chunks))
 
-chunker = MarkdownChunker()
-chunks = chunker.chunk(document)
+            for chunk in chunks:
+                print("Metadata:", chunk.metadata)
+                print("Content:", chunk.content)
 
-for chunk in chunks:
-    print("\nChunk ID:", chunk.metadata["chunk_id"])
-    print("Metadata:", chunk.metadata)
-    print("Content:", chunk.content)
+        except Exception as error:
+            print("Error:", error)
+
+
+if __name__ == "__main__":
+    main()
