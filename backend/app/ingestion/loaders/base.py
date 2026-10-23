@@ -1,7 +1,7 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class DocumentLoader(ABC):
-
     @abstractmethod
-    def load(self,file_path:str):
-        pass
+    def load(self, file_path: str):
+        raise NotImplementedError
