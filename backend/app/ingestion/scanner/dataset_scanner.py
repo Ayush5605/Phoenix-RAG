@@ -1,7 +1,7 @@
 
 from pathlib import Path
 
-from .file_detector import FileType, FileDetector
+from .file_detector import INGESTIBLE_FILE_TYPES, FileDetector
 from .file_filter import FileFilter
 
 
@@ -24,7 +24,7 @@ class DatasetScanner:
 
             file_type = self.file_detector.detect(path)
 
-            if file_type == FileType.UNKNOWN:
+            if file_type not in INGESTIBLE_FILE_TYPES:
                 continue
 
             files.append(path)

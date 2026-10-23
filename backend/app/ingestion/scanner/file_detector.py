@@ -48,6 +48,22 @@ EXTENSION_MAP={
 
 }
 
+INGESTIBLE_FILE_TYPES = frozenset({
+    FileType.PDF,
+    FileType.MARKDOWN,
+    FileType.TEXT,
+    FileType.HTML,
+    FileType.DOCX,
+    FileType.PPTX,
+    FileType.PYTHON,
+    FileType.JAVASCRIPT,
+    FileType.TYPESCRIPT,
+    FileType.JSON,
+    FileType.YAML,
+    FileType.SVG,
+})
+
+
 class FileDetector:
 
     def detect(self,file_path:str)->FileType:

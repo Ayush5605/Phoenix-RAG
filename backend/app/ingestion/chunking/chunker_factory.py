@@ -21,6 +21,8 @@ class ChunkerFactory:
             "yaml": YAMLChunker(),
             "text": TextChunker(),
             "html": TextChunker(),
+            "docx": TextChunker(),
+            "pptx": TextChunker(),
             "svg": TextChunker(),
         }
 
